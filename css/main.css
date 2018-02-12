@@ -9,6 +9,42 @@ body
   font-family: 'Lato', sans-serif;
 }
 
+#page1
+{
+  opacity: 0;
+  transition: all 0.4s ease-in;
+}
+
+#page1.contentActive
+{
+  opacity: 1;
+  transition: all 0.4s ease-out;
+}
+
+#page2
+{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  margin:auto;
+
+  width:250px;
+  height:40px;
+
+  z-index: 10;
+
+  opacity: 0;
+  transition: all 0.4s ease-in;
+}
+
+#page2.contentActive
+{
+  opacity: 1;
+  transition: all 0.4s ease-out;
+}
+
 input::selection
 {
   background: red; /* WebKit/Blink Browsers */ !important
@@ -37,9 +73,9 @@ input[type="time"]::-ms-clear
     display: none;
 }
 
-hr
+input::-webkit-selection
 {
-  color:rgb(95,75,139);
+   background:rgba(231,105,105,0.7);
 }
 
 .info
@@ -53,7 +89,7 @@ hr
 
 #title
 {
-  margin-top:25px;
+  margin-top:40px;
   font-size: 42px;
 }
 
@@ -61,7 +97,7 @@ hr
 {
   cursor: pointer;
   letter-spacing: 3px;
-  margin-top:25px;
+  margin-top:40px;
   background-color: white;
   color:rgb(95,75,139);
   text-align: center;

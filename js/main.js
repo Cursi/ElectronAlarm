@@ -13,7 +13,7 @@ let mainWindow;
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 450, height: 250, resizable: false, icon: "icon.ico"});
+  mainWindow = new BrowserWindow({width: 450, height: 300, resizable: false, icon: "icon.ico"});
   mainWindow.setMenu(null);
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, '../index.html'),
@@ -29,7 +29,7 @@ function createWindow () {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    mainWindow = null
+    mainWindow = null;
   });
 }
 

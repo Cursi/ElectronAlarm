@@ -7,22 +7,84 @@
     <script>
       require('./js/renderer.js');
       window.$ = window.jQuery = require('jquery');
+      const remote = require('electron').remote;
+      let currentWindow = remote.getCurrentWindow();
     </script>
 
     <meta charset="UTF-8">
-    <title>Simple Alarm</title>
+    <title>Electron alarm</title>
   </head>
 
   <body>
-    <div id="title" class="info">Hi!</div>
-    <div class="info">Pick time and press enter...</div>
-    <input id="picker" type="time"/>
+    <div id="page1">
+      <div id="title" class="info">Hi!</div>
+      <div class="info">Pick time and press enter...</div>
+      <input id="picker" type="time"/>
+    </div>
+
+    <div class="info" id="page2">Here's your alarm! :)</div>
   </body>
 </html>
 
 <script>
+var currentDateTime, currentTime, expectedTime;
+var myInterval;
+var wasEnterPressed = false;
+
+function PlayBigEnough()
+{
+    var audio = new Audio("audio/Big Enough.mp3");
+    audio.play();
+}
+
+function FormatCurrentTime()
+{
+    currentDateTime = new Date($.now());
+    currentTime =  currentDateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false });
+}
+
+function CheckTime()
+{
+    FormatCurrentTime();
+
+    if (currentTime == expectedTime)
+    {
+        clearInterval(myInterval);
+        PlayBigEnough();
+
+        currentWindow.show();
+        currentWindow.focus();
+
+        setTimeout(function()
+        {
+            $("#page2").addClass("contentActive");
+        }, 400);
+    }
+}
+
 $(document).ready(function()
 {
-    // alert(100);
+    $("#page1").addClass("contentActive");
+
+    FormatCurrentTime();
+
+    $("#picker").val(currentTime);
+    $("#picker").focus();
+
+    $(document).keypress(function(e)
+    {
+      if (e.which == 13 && !wasEnterPressed)
+      {
+         wasEnterPressed = true;
+         expectedTime = $("#picker").val();
+         $("#page1").removeClass("contentActive");
+
+         setTimeout(function()
+         {
+            myInterval = setInterval(function(){CheckTime();}, 1000);
+            currentWindow.hide();
+         }, 550);
+      }
+    });
 });
 </script>
