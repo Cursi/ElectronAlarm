@@ -45,11 +45,6 @@ body
   transition: all 0.4s ease-out;
 }
 
-input::selection
-{
-  background: red; /* WebKit/Blink Browsers */ !important
-}
-
 input:focus, select:focus, textarea:focus, button:focus
 {
     outline: none;
